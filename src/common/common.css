@@ -1,0 +1,45 @@
+
+.btn {
+  border-width: 0px;
+  border-radius: 4px;
+  font-size: 14px !important;
+  height: 32px;
+  background: #FFFFFF;
+}
+.btn-cancle {
+  background: #FFFFFF;
+  border: 1px solid #E9E9E9;
+  border-radius: 4px;
+  font-size: 14px;
+  height: 32px;
+}
+
+
+input {
+  color: #656a78;
+  font-size: 14px;
+}
+
+input::-webkit-input-placeholder {
+  color: #bbbec4;
+  font-size: 12px;
+}
+
+/* 使用webkit内核的浏览器 */
+input:-moz-placeholder {
+  color: #bbbec4;
+  font-size: 12px;
+}
+
+/* Firefox版本4-18 */
+input::-moz-placeholder {
+  color: #bbbec4;
+  font-size: 12px;
+}
+
+/* Firefox版本19+ */
+input:-ms-input-placeholder {
+  color: #bbbec4;
+  font-size: 12px;
+}
+/* IE浏览器 */

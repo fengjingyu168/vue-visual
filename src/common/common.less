@@ -1,0 +1,76 @@
+@color-blue: #0080FF;
+@color-red: red;
+@color-gray-E: #E9E9E9;
+@color-gray-F: #F7F7F7;
+@color-orange-F: #fa7821;
+
+
+
+// button样式--开始
+button{
+  outline:none;
+  margin: 0 3px;
+  background-color: white;
+  cursor: pointer;
+}
+.btn-confirm-f {
+  height: 32px;
+  padding: 0 10px;
+  font-size: 14px;
+  color: white;
+  border-radius: 4px;
+  background-color: @color-blue;
+  border: 1px solid @color-blue;
+}
+
+.btn-cancle-f {
+  height: 32px;
+  padding: 0 10px;
+  font-size: 14px;
+  color: #3f4a56;
+  border-radius: 4px;
+  border:1px solid @color-gray-E;
+}
+
+.btn-cancle-f:hover {
+  color: @color-blue;
+  border:1px solid @color-blue;
+}
+
+.model-footer-f {
+  text-align: right;
+  padding: 16px 0;
+  padding-right: 24px;
+  border-top: 1px solid @color-gray-E;
+}
+
+.model-footer-temp-f {
+  text-align: right;
+  padding: 16px 0 0;
+  padding-right: 24px;
+  border-top: 1px solid @color-gray-E;
+}
+// button样式--结束
+
+// * 必填样式
+.required-tip {
+  vertical-align: middle;
+  margin-bottom: 0px;
+  padding-left: 0px;
+  line-height: 33px;
+  color: @color-red;
+  font-size: 16px;
+}
+
+// 区域、可用区临时样式-开始
+.block-show-temp{
+  padding-left: 0;
+}
+// 区域、可用区临时样式-结束
+
+//万能清浮动
+.clearFix:after{
+  content: '';
+  display: table;
+  clear: both; 
+}
