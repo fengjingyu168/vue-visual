@@ -12,36 +12,38 @@
               基本属性
             </div>
             <div>
-              <ul>
-                <li>
-                  <label>版本</label>
-                  <input type='text'>
-                </li>
-                <li>
-                  <label>描述</label>
-                  <input type='text' class='form-control'>
-                </li>
-              </ul>
-
-
+              <Attribute :attr='baseProperties'></Attribute>
             </div>
           </div>
         </div>
+
         <!--画布属性区--结束-->
         <!--节点属性编辑区--开始-->
         <div v-else>
           <h4 class='diagram-attribute-pannel-title'>资源属性</h4>
           <div class='diagram-attribute-pannel-content'>
-            <div class='attribute-title'>
-              基本属性
-            </div>
-            <div class='attribute-title'>
-              资源属性
-            </div>
+            <section>
+              <div class='attribute-title'>
+                基本属性
+              </div>
+              <div>
+                <Attribute :attr='selectedNodeBaseProperties'></Attribute>
+              </div>
+            </section>
+            <section>
+              <div class='attribute-title'>
+                资源属性
+              </div>
+              <div>
+                <Attribute :attr='selectedNodeResourceProperties'></Attribute>
+              </div>
+            </section>
+
           </div>
         </div>
         <!--节点属性编辑区--结束-->
       </div>
+
     </div>
     <p style='display: none'>
       <button id='SaveButton' @click='save()'>Save</button>
@@ -61,8 +63,8 @@
   h4 {
     margin: 0;
   }
-  li {
-    list-style:none
+  section {
+    margin: 4px 0;
   }
 
   .diagram-attribute-pannel-title {
@@ -92,7 +94,7 @@
 </style>
 <script>
   import go from 'gojs'
-
+  import Attribute from './attribute'
   export default {
     name: 'HelloWorld',
     data() {
@@ -109,59 +111,123 @@
             _comment: 'NAS产品配置',
             text: 'NAS',
             source: require('./pic/NAS.png'),
-            inNodeType: ['ECS', 'CBS']
+            inNodeType: ['ECS', 'CBS'],
+            baseProperties: {
+              config: [
+                {label: '资源ID', value: 'resourceId', placeholder: '', disabled: false, type: 'text',v_validate: 'required:true|min:2|max:60', isError: false},
+                {label: '资源类型', value: 'resourceType', placeholder: '', disabled: false, type: 'text',v_validate: 'required:true', isError: false},
+                {label: '资源依赖', value: 'resourceDepends', placeholder: '', disabled: false, type: 'text',v_validate: 'required:true', isError: false},
+              ],
+              data: {
+                resourceId: 'NAS',
+                resourceType: '',
+                resourceDepends: ''
+              }
+            },
+            resourceProperties: {
+              config: [
+                {label: '单选', value: 'singleCheck', placeholder: '', disabled: false, type: 'checkbox',v_validate: '', isError: false},
+              ],
+              data: {
+                singleCheck: false,
+              }
+            },
           },
           ECS: {
             _comment: 'ECS产品配置',
             text: 'ECS',
             source: require('./pic/ECS.png'),
             inNodeType: [],
-            properies: [
-              {
-                cnName: 'IP',
-                type: 'text',
-                valName: 'ip',
-                value: '',
-              },
-              {
-                cnName: 'CPU核数',
-                type: 'select',
-                valName: 'cpuNo',
-                value: '',
-                remoteFilters: false, // 是否远程获取过滤条件
-                remoteAPI: '', // 获取筛选数据接口
-                displayName: '', // 展示字段(获取条件接口中该字段值作为展示字段)
-                filterValue: '',   // 展示字段对应值(获取条件接口中该字段作为传递至接口字段值)
-                filterLists: [
-                  {label: '1核', value: 1},
-                  {label: '2核', value: 2},
-                  {label: '3核', value: 3},
-                ]
-              },
-              {
-                cnName: '租户',
-                type: 'select',
-                valName: 'tenantId',
-                value: '',
-                remoteFilters: true, // 是否远程获取过滤条件
-                remoteAPI: 'manage.zone.host_manage.CRUD', // 获取筛选数据接口
-                displayName: 'hostname', // 展示字段(获取条件接口中该字段值作为展示字段)
-                filterValue: 'hostname',   // 展示字段对应值(获取条件接口中该字段作为传递至接口字段值)
-                filterLists: []
+            baseProperties: {
+              config: [
+                {label: '资源ID', value: 'resourceId', placeholder: '', disabled: false, type: 'text',v_validate: 'required:true|min:2|max:60', isError: false},
+                {label: '资源类型', value: 'resourceType', placeholder: '', disabled: false, type: 'text',v_validate: 'required:true', isError: false},
+                {label: '资源依赖', value: 'resourceDepends', placeholder: '', disabled: false, type: 'text',v_validate: 'required:true', isError: false},
+              ],
+              data: {
+                resourceId: 'ECS',
+                resourceType: '',
+                resourceDepends: ''
               }
-
-            ]
+            },
+            resourceProperties: {
+              config: [
+                {label: '数字框', value: 'inputNumber', max: 10, min:1, disabled: false, type: 'InputNumber',v_validate: '', isError: false},
+              ],
+              data: {
+                inputNumber: 0
+              }
+            },
           },
           CBS: {
             _comment: 'CBS产品配置',
             text: 'CBS',
             source: require('./pic/CBS.png'),
             inNodeType: [],
+            baseProperties: {
+              config: [
+                {label: '资源ID', value: 'resourceId', placeholder: '', disabled: false, type: 'text',v_validate: 'required:true|min:2|max:60', isError: false},
+                {label: '资源类型', value: 'resourceType', placeholder: '', disabled: false, type: 'text',v_validate: 'required:true', isError: false},
+                {label: '资源依赖', value: 'resourceDepends', placeholder: '', disabled: false, type: 'text',v_validate: 'required:true', isError: false},
+              ],
+              data: {
+                resourceId: 'CBS',
+                resourceType: '',
+                resourceDepends: ''
+              }
+            },
+            resourceProperties: {
+              config: [
+                {label: '选择框', value: 'v_selected', option: 'v_option', type: 'select', placeholder: '', disabled: false,},
+              ],
+              data: {},
+              v_select_configs: {
+                v_selected: null,
+                v_option: [
+                  {label: '1', value: 1},
+                  {label: '2', value: 2},
+                  {label: '3', value: 3}
+                ],
+              }
+            },
           }
         }, // 菜单属性配置
+        selectedNodeBaseProperties: {}, // 选中节点基本属性
+        selectedNodeResourceProperties: {}, // 选中节点资源属性
+
+        // 画布配置-开始
+        baseProperties: {
+          config: [
+            {label: '版本', value: 'version', placeholder: '', disabled: false, type: 'text',v_validate: 'required:true|min:2|max:60', isError: false},
+            {label: '描述', value: 'description', placeholder: '', disabled: false, type: 'text',v_validate: 'required:true', isError: false},
+            {label: '单选', value: 'singleCheck', placeholder: '', disabled: false, type: 'checkbox',v_validate: '', isError: false},
+            {label: '数字框', value: 'inputNumber', max: 10, min:1, disabled: false, type: 'InputNumber',v_validate: '', isError: false},
+            {label: '磁盘类型', value: 'v_selected', option: 'v_option', type: 'select', placeholder: '', disabled: false,},
+          ],
+          data: {
+            version: 'asdfasdf',
+            description: '',
+            singleCheck: false,
+            inputNumber: 0
+          },
+          v_select_configs: {
+            v_selected: null,
+            v_option: [
+              {label: '1', value: 1},
+              {label: '2', value: 2},
+              {label: '3', value: 3}
+            ],
+          }
+        },
+        version: '',
+        description: '',
+        // 画布配置-结束
 
         // 节点属性配置-开始
         isNodeSelected: false, // 影响属性编辑区显示
+        resourceId: '',
+        resourceType: '',
+        resourceDepends: '',
         // 节点属性配置-结束
       }
     },
@@ -216,8 +282,16 @@
 
         // 节点选中事件
         this.myDiagram.addDiagramListener('ObjectSingleClicked', (e) => {
+
+          this.selectedNodeBaseProperties = {}
+          this.selectedNodeResourceProperties = {}
           this.isNodeSelected = true
-          console.log(e.subject.part.data)
+          let selectedNode = e.subject.part.data
+          console.log(selectedNode)
+          this.selectedNodeBaseProperties = selectedNode.baseProperties
+          this.selectedNodeBaseProperties.data.resourceId = selectedNode.type + selectedNode.key
+          this.selectedNodeResourceProperties = selectedNode.resourceProperties
+
         })
 
         // 监听连线事件
@@ -495,6 +569,9 @@
         }, 1)
       }
 
+    },
+    components: {
+      Attribute
     }
   }
 </script>
