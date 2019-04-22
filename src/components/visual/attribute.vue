@@ -49,11 +49,22 @@
   export default {
     name: 'attribute',
     data() {
-      return {}
+      return {
+        aa: 11
+      }
     },
     props: ['attr'],
     mounted() {
 
+    },
+    watch: {
+      attr: {
+        handler(newValue) {
+          console.log(newValue)
+          this.$emit('obtainNewData', newValue.data)
+        },
+        deep: true
+      }
     },
     methods: {},
     components: {}

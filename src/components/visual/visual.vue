@@ -35,7 +35,7 @@
                 资源属性
               </div>
               <div>
-                <Attribute :attr='selectedNodeResourceProperties'></Attribute>
+                <Attribute :attr='selectedNodeResourceProperties' @obtainNewData="obtainNewData"></Attribute>
               </div>
             </section>
 
@@ -63,6 +63,7 @@
   h4 {
     margin: 0;
   }
+
   section {
     margin: 4px 0;
   }
@@ -83,6 +84,7 @@
     /*overflow: hidden;*/
     /*overflow-y: auto;*/
   }
+
   .attribute-title {
     border-bottom: 1px solid #333;
     font-size: 13px;
@@ -95,6 +97,7 @@
 <script>
   import go from 'gojs'
   import Attribute from './attribute'
+
   export default {
     name: 'HelloWorld',
     data() {
@@ -114,9 +117,33 @@
             inNodeType: ['ECS', 'CBS'],
             baseProperties: {
               config: [
-                {label: '资源ID', value: 'resourceId', placeholder: '', disabled: false, type: 'text',v_validate: 'required:true|min:2|max:60', isError: false},
-                {label: '资源类型', value: 'resourceType', placeholder: '', disabled: false, type: 'text',v_validate: 'required:true', isError: false},
-                {label: '资源依赖', value: 'resourceDepends', placeholder: '', disabled: false, type: 'text',v_validate: 'required:true', isError: false},
+                {
+                  label: '资源ID',
+                  value: 'resourceId',
+                  placeholder: '',
+                  disabled: false,
+                  type: 'text',
+                  v_validate: 'required:true|min:2|max:60',
+                  isError: false
+                },
+                {
+                  label: '资源类型',
+                  value: 'resourceType',
+                  placeholder: '',
+                  disabled: false,
+                  type: 'text',
+                  v_validate: 'required:true',
+                  isError: false
+                },
+                {
+                  label: '资源依赖',
+                  value: 'resourceDepends',
+                  placeholder: '',
+                  disabled: false,
+                  type: 'text',
+                  v_validate: 'required:true',
+                  isError: false
+                },
               ],
               data: {
                 resourceId: 'NAS',
@@ -126,7 +153,15 @@
             },
             resourceProperties: {
               config: [
-                {label: '单选', value: 'singleCheck', placeholder: '', disabled: false, type: 'checkbox',v_validate: '', isError: false},
+                {
+                  label: '单选',
+                  value: 'singleCheck',
+                  placeholder: '',
+                  disabled: false,
+                  type: 'checkbox',
+                  v_validate: '',
+                  isError: false
+                },
               ],
               data: {
                 singleCheck: false,
@@ -140,9 +175,33 @@
             inNodeType: [],
             baseProperties: {
               config: [
-                {label: '资源ID', value: 'resourceId', placeholder: '', disabled: false, type: 'text',v_validate: 'required:true|min:2|max:60', isError: false},
-                {label: '资源类型', value: 'resourceType', placeholder: '', disabled: false, type: 'text',v_validate: 'required:true', isError: false},
-                {label: '资源依赖', value: 'resourceDepends', placeholder: '', disabled: false, type: 'text',v_validate: 'required:true', isError: false},
+                {
+                  label: '资源ID',
+                  value: 'resourceId',
+                  placeholder: '',
+                  disabled: false,
+                  type: 'text',
+                  v_validate: 'required:true|min:2|max:60',
+                  isError: false
+                },
+                {
+                  label: '资源类型',
+                  value: 'resourceType',
+                  placeholder: '',
+                  disabled: false,
+                  type: 'text',
+                  v_validate: 'required:true',
+                  isError: false
+                },
+                {
+                  label: '资源依赖',
+                  value: 'resourceDepends',
+                  placeholder: '',
+                  disabled: false,
+                  type: 'text',
+                  v_validate: 'required:true',
+                  isError: false
+                },
               ],
               data: {
                 resourceId: 'ECS',
@@ -152,7 +211,16 @@
             },
             resourceProperties: {
               config: [
-                {label: '数字框', value: 'inputNumber', max: 10, min:1, disabled: false, type: 'InputNumber',v_validate: '', isError: false},
+                {
+                  label: '数字框',
+                  value: 'inputNumber',
+                  max: 10,
+                  min: 1,
+                  disabled: false,
+                  type: 'InputNumber',
+                  v_validate: '',
+                  isError: false
+                },
               ],
               data: {
                 inputNumber: 0
@@ -166,9 +234,33 @@
             inNodeType: [],
             baseProperties: {
               config: [
-                {label: '资源ID', value: 'resourceId', placeholder: '', disabled: false, type: 'text',v_validate: 'required:true|min:2|max:60', isError: false},
-                {label: '资源类型', value: 'resourceType', placeholder: '', disabled: false, type: 'text',v_validate: 'required:true', isError: false},
-                {label: '资源依赖', value: 'resourceDepends', placeholder: '', disabled: false, type: 'text',v_validate: 'required:true', isError: false},
+                {
+                  label: '资源ID',
+                  value: 'resourceId',
+                  placeholder: '',
+                  disabled: false,
+                  type: 'text',
+                  v_validate: 'required:true|min:2|max:60',
+                  isError: false
+                },
+                {
+                  label: '资源类型',
+                  value: 'resourceType',
+                  placeholder: '',
+                  disabled: false,
+                  type: 'text',
+                  v_validate: 'required:true',
+                  isError: false
+                },
+                {
+                  label: '资源依赖',
+                  value: 'resourceDepends',
+                  placeholder: '',
+                  disabled: false,
+                  type: 'text',
+                  v_validate: 'required:true',
+                  isError: false
+                },
               ],
               data: {
                 resourceId: 'CBS',
@@ -178,7 +270,14 @@
             },
             resourceProperties: {
               config: [
-                {label: '选择框', value: 'v_selected', option: 'v_option', type: 'select', placeholder: '', disabled: false,},
+                {
+                  label: '选择框',
+                  value: 'v_selected',
+                  option: 'v_option',
+                  type: 'select',
+                  placeholder: '',
+                  disabled: false,
+                },
               ],
               data: {},
               v_select_configs: {
@@ -198,10 +297,43 @@
         // 画布配置-开始
         baseProperties: {
           config: [
-            {label: '版本', value: 'version', placeholder: '', disabled: false, type: 'text',v_validate: 'required:true|min:2|max:60', isError: false},
-            {label: '描述', value: 'description', placeholder: '', disabled: false, type: 'text',v_validate: 'required:true', isError: false},
-            {label: '单选', value: 'singleCheck', placeholder: '', disabled: false, type: 'checkbox',v_validate: '', isError: false},
-            {label: '数字框', value: 'inputNumber', max: 10, min:1, disabled: false, type: 'InputNumber',v_validate: '', isError: false},
+            {
+              label: '版本',
+              value: 'version',
+              placeholder: '',
+              disabled: false,
+              type: 'text',
+              v_validate: 'required:true|min:2|max:60',
+              isError: false
+            },
+            {
+              label: '描述',
+              value: 'description',
+              placeholder: '',
+              disabled: false,
+              type: 'text',
+              v_validate: 'required:true',
+              isError: false
+            },
+            {
+              label: '单选',
+              value: 'singleCheck',
+              placeholder: '',
+              disabled: false,
+              type: 'checkbox',
+              v_validate: '',
+              isError: false
+            },
+            {
+              label: '数字框',
+              value: 'inputNumber',
+              max: 10,
+              min: 1,
+              disabled: false,
+              type: 'InputNumber',
+              v_validate: '',
+              isError: false
+            },
             {label: '磁盘类型', value: 'v_selected', option: 'v_option', type: 'select', placeholder: '', disabled: false,},
           ],
           data: {
@@ -229,39 +361,53 @@
         resourceType: '',
         resourceDepends: '',
         // 节点属性配置-结束
+
+        selected: null, // 选中区数据(节点、连线)
+        diagramData: null,
       }
     },
-    props: {
-    },
+    props: {},
     mounted() {
       this.init()
     },
     methods: {
+      // 将回传属性值绑定到对应节点中
+      obtainNewData(newData) {
+        this.diagramData.nodeDataArray.forEach((data) => {
+          if (data.key === this.selected.key) {
+            data.resourceProperties.data = newData
+            return data
+          }
+        })
+      },
       init() {
         // if (window.goSamples) goSamples()  // init for these samples -- you don't need to call this
-        var $ = go.GraphObject.make  // for conciseness in defining templates
-
+        var $_ = go.GraphObject.make  // for conciseness in defining templates
+        let _this = this
         this.myDiagram =
-          $(go.Diagram, 'myDiagramDiv',  // must name or refer to the DIV HTML element
+          $_(go.Diagram, 'myDiagramDiv',  // must name or refer to the DIV HTML element
             {
               'LinkDrawn': showLinkLabel,  // this DiagramEvent listener is defined below
               'LinkRelinked': showLinkLabel,
               'undoManager.isEnabled': true,  // enable undo & redo
               nodeSelectionAdornmentTemplate:
-                $(go.Adornment, 'Auto',
+                $_(go.Adornment, 'Auto',
                   // { layerName: 'Grid' },  // the predefined layer that is behind everything else
-                  $(go.Shape, 'Rectangle', {fill: 'white', stroke: null}),
-                  // $(go.Placeholder)
+                  $_(go.Shape, 'Rectangle', {fill: 'white', stroke: null}),
+                  // $_(go.Placeholder)
                 ),
-              grid: $(go.Panel, 'Grid',
+              grid: $_(go.Panel, 'Grid',
                 {gridCellSize: new go.Size(10, 10)},
-                $(go.Shape, 'LineH', {stroke: '#F5F5F5'}),
-                $(go.Shape, 'LineV', {stroke: '#F5F5F5'})
+                $_(go.Shape, 'LineH', {stroke: '#F5F5F5'}),
+                $_(go.Shape, 'LineV', {stroke: '#F5F5F5'})
               ),
               // For this sample, automatically show the state of the diagram's model on the page
               'ModelChanged': (e) => {
                 if (e.isTransactionFinished) {
                   document.getElementById('mySavedModel').textContent = this.myDiagram.model.toJson()
+                  let str = this.myDiagram.model.toJson()
+                  _this.diagramData = JSON.parse(str)
+
                 }
               },
             }
@@ -287,12 +433,22 @@
           this.selectedNodeResourceProperties = {}
           this.isNodeSelected = true
           let selectedNode = e.subject.part.data
-          console.log(selectedNode)
+          this.selected = e.subject.part.data
           this.selectedNodeBaseProperties = selectedNode.baseProperties
           this.selectedNodeBaseProperties.data.resourceId = selectedNode.type + selectedNode.key
-          this.selectedNodeResourceProperties = selectedNode.resourceProperties
+          // this.selectedNodeResourceProperties = selectedNode.resourceProperties
 
+          for (let arr of this.diagramData.nodeDataArray) {
+            if (arr.key === this.selected.key) {
+              this.selectedNodeResourceProperties = arr.resourceProperties
+            }
+          }
         })
+        // 节点选中事件
+        // this.myDiagram.addDiagramListener('LostFocus', (e) => {
+        //   console.log(e)
+        //   debugger
+        // })
 
         // 监听连线事件
         this.myDiagram.addDiagramListener('LinkDrawn', (e) => {
@@ -305,7 +461,7 @@
         // 监听连线事件
         this.myDiagram.addDiagramListener('BackgroundSingleClicked', (e) => {
           this.isNodeSelected = false
-          console.log('选中背景板',e)
+          console.log('选中背景板', e)
         })
 
         // helper definitions for node templates
@@ -334,7 +490,7 @@
           var horizontal = align.equals(go.Spot.Top) || align.equals(go.Spot.Bottom)
           // the port is basically just a transparent rectangle that stretches along the side of the node,
           // and becomes colored when the mouse passes over it
-          return $(go.Shape,
+          return $_(go.Shape,
             'Circle',
             {
               fill: 'transparent',  // changed to a color in the mouseEnter event handler
@@ -368,13 +524,13 @@
         // define the Node templates for regular nodes
 
         this.myDiagram.nodeTemplateMap.add('',  // the default category
-          $(go.Node, 'Table', nodeStyle(),
+          $_(go.Node, 'Table', nodeStyle(),
             // the main object is a Panel that surrounds a TextBlock with a rectangular Shape
-            $(go.Panel, 'Auto',
-              $(go.Shape, 'Rectangle',
+            $_(go.Panel, 'Auto',
+              $_(go.Shape, 'Rectangle',
                 {fill: '#00A9C9', strokeWidth: 0},
                 new go.Binding('figure', 'figure')),
-              $(go.TextBlock, textStyle(),
+              $_(go.TextBlock, textStyle(),
                 {
                   margin: 8,
                   maxSize: new go.Size(160, NaN),
@@ -385,15 +541,15 @@
             ),
             {
               contextMenu:                            // define a context menu for each node
-                $('ContextMenu', 'Spot',              // that has several buttons around
-                  $(go.Placeholder, {padding: 5}),  // a Placeholder object
-                  $('ContextMenuButton', $(go.TextBlock, 'Top'),
+                $_('ContextMenu', 'Spot',              // that has several buttons around
+                  $_(go.Placeholder, {padding: 5}),  // a Placeholder object
+                  $_('ContextMenuButton', $_(go.TextBlock, 'Top'),
                     {alignment: go.Spot.Top, alignmentFocus: go.Spot.Bottom, click: cmCommand}),
-                  $('ContextMenuButton', $(go.TextBlock, 'Right'),
+                  $_('ContextMenuButton', $_(go.TextBlock, 'Right'),
                     {alignment: go.Spot.Right, alignmentFocus: go.Spot.Left, click: cmCommand}),
-                  $('ContextMenuButton', $(go.TextBlock, 'Bottom'),
+                  $_('ContextMenuButton', $_(go.TextBlock, 'Bottom'),
                     {alignment: go.Spot.Bottom, alignmentFocus: go.Spot.Top, click: cmCommand}),
-                  $('ContextMenuButton', $(go.TextBlock, 'Left'),
+                  $_('ContextMenuButton', $_(go.TextBlock, 'Left'),
                     {alignment: go.Spot.Left, alignmentFocus: go.Spot.Right, click: cmCommand})
                 )  // end Adornment
             },
@@ -405,10 +561,10 @@
           ))
 
         this.myDiagram.nodeTemplateMap.add('Picture',
-          $(go.Node, 'Table',
+          $_(go.Node, 'Table',
             nodeStyle(),
             // { background: 'white' },
-            $(go.Picture,
+            $_(go.Picture,
               // Pictures 应该指定宽高.
               // 当没有图片时显示红色的背景
               // 或者当图片为透明的时候也是.
@@ -416,7 +572,7 @@
               // Picture.source参数值与模型数据中的'source'字段绑定
               new go.Binding('source'),
             ),
-            $(go.TextBlock,
+            $_(go.TextBlock,
               'Default Text',  // 初始化默认文本
               // 文字周围的空隙, 大号字体, 白色笔画:
               {row: 1, stroke: 'black', font: 'bold 12px sans-serif', background: '#f5f5f5'},
@@ -424,15 +580,15 @@
               new go.Binding('text', 'text')),
             // {
             //     contextMenu:                            // define a context menu for each node
-            //         $('ContextMenu', 'Spot',              // that has several buttons around
-            //             $(go.Placeholder, { padding: 5 }),  // a Placeholder object
-            //             $('ContextMenuButton', $(go.TextBlock, 'Top'),
+            //         $_('ContextMenu', 'Spot',              // that has several buttons around
+            //             $_(go.Placeholder, { padding: 5 }),  // a Placeholder object
+            //             $_('ContextMenuButton', $_(go.TextBlock, 'Top'),
             //                 { alignment: go.Spot.Top, alignmentFocus: go.Spot.Bottom, click: cmCommand }),
-            //             $('ContextMenuButton', $(go.TextBlock, 'Right'),
+            //             $_('ContextMenuButton', $_(go.TextBlock, 'Right'),
             //                 { alignment: go.Spot.Right, alignmentFocus: go.Spot.Left, click: cmCommand }),
-            //             $('ContextMenuButton', $(go.TextBlock, 'Bottom'),
+            //             $_('ContextMenuButton', $_(go.TextBlock, 'Bottom'),
             //                 { alignment: go.Spot.Bottom, alignmentFocus: go.Spot.Top, click: cmCommand }),
-            //             $('ContextMenuButton', $(go.TextBlock, 'Left'),
+            //             $_('ContextMenuButton', $_(go.TextBlock, 'Left'),
             //                 { alignment: go.Spot.Left, alignmentFocus: go.Spot.Right, click: cmCommand })
             //         )  // end Adornment
             // },
@@ -455,7 +611,7 @@
 
         // replace the default Link template in the linkTemplateMap
         this.myDiagram.linkTemplate =
-          $(go.Link,  // the whole link panel
+          $_(go.Link,  // the whole link panel
             {
               routing: go.Link.AvoidsNodes,
               curve: go.Link.JumpOver,
@@ -475,21 +631,21 @@
               selectable: true,
             },
             new go.Binding('points').makeTwoWay(),
-            $(go.Shape,  // the highlight shape, normally transparent
+            $_(go.Shape,  // the highlight shape, normally transparent
               {isPanelMain: true, strokeWidth: 8, stroke: 'transparent', name: 'HIGHLIGHT'}),
-            $(go.Shape,  // the link path shape
+            $_(go.Shape,  // the link path shape
               {isPanelMain: true, stroke: 'gray', strokeWidth: 2},
               new go.Binding('stroke', 'isSelected', function (sel) {
                 return sel ? 'red' : 'black'
               }).ofObject()),
-            $(go.Shape,  // the arrowhead
+            $_(go.Shape,  // the arrowhead
               {toArrow: 'standard', strokeWidth: 0, fill: 'gray'}),
-            $(go.Panel, 'Auto',  // the link label, normally not visible
+            $_(go.Panel, 'Auto',  // the link label, normally not visible
               {visible: false, name: 'LABEL', segmentIndex: 2, segmentFraction: 0.5},
               new go.Binding('visible', 'visible').makeTwoWay(),
-              $(go.Shape, 'RoundedRectangle',  // the label shape
+              $_(go.Shape, 'RoundedRectangle',  // the label shape
                 {fill: '#F8F8F8', strokeWidth: 0}),
-              $(go.TextBlock, 'Yes',  // the label
+              $_(go.TextBlock, 'Yes',  // the label
                 {
                   textAlign: 'center',
                   font: '10pt helvetica, arial, sans-serif',
@@ -515,7 +671,7 @@
 
         // initialize the Palette that is on the left side of the page
         this.myPalette =
-          $(go.Palette, 'myPaletteDiv',  // must name or refer to the DIV HTML element
+          $_(go.Palette, 'myPaletteDiv',  // must name or refer to the DIV HTML element
             {
               nodeTemplateMap: this.myDiagram.nodeTemplateMap,  // share the templates used by myDiagram
               model: new go.GraphLinksModel(
@@ -583,15 +739,17 @@
     background-color: white;
     border: solid 1px #E9E9E9;
   }
+
   #myDiagramDiv {
     flex-grow: 1;
     height: 100%;
     border: solid 1px #E9E9E9;;
   }
+
   #myInspector {
     text-align: left;
     width: 250px;
-    margin-left:-1px;
+    margin-left: -1px;
     margin-right: 2px;
     background-color: white;
     border-left: solid 1px #999;
