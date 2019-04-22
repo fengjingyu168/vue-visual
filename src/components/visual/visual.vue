@@ -1,5 +1,6 @@
 <template>
   <div id='sample'>
+    {{diagramData}}
     <div style='width: 100%;height:100vh; display: flex; justify-content: space-between;'>
       <div id='myPaletteDiv'></div>
       <div id='myDiagramDiv'></div>
@@ -315,26 +316,26 @@
               v_validate: 'required:true',
               isError: false
             },
-            {
-              label: '单选',
-              value: 'singleCheck',
-              placeholder: '',
-              disabled: false,
-              type: 'checkbox',
-              v_validate: '',
-              isError: false
-            },
-            {
-              label: '数字框',
-              value: 'inputNumber',
-              max: 10,
-              min: 1,
-              disabled: false,
-              type: 'InputNumber',
-              v_validate: '',
-              isError: false
-            },
-            {label: '磁盘类型', value: 'v_selected', option: 'v_option', type: 'select', placeholder: '', disabled: false,},
+            // {
+            //   label: '单选',
+            //   value: 'singleCheck',
+            //   placeholder: '',
+            //   disabled: false,
+            //   type: 'checkbox',
+            //   v_validate: '',
+            //   isError: false
+            // },
+            // {
+            //   label: '数字框',
+            //   value: 'inputNumber',
+            //   max: 10,
+            //   min: 1,
+            //   disabled: false,
+            //   type: 'InputNumber',
+            //   v_validate: '',
+            //   isError: false
+            // },
+            // {label: '磁盘类型', value: 'v_selected', option: 'v_option', type: 'select', placeholder: '', disabled: false,},
           ],
           data: {
             version: 'asdfasdf',
@@ -428,7 +429,10 @@
 
         // 节点选中事件
         this.myDiagram.addDiagramListener('ObjectSingleClicked', (e) => {
-
+          if (e.subject.part.type.name === 'Link') {
+            debugger
+            return
+          }
           this.selectedNodeBaseProperties = {}
           this.selectedNodeResourceProperties = {}
           this.isNodeSelected = true
@@ -437,10 +441,16 @@
           this.selectedNodeBaseProperties = selectedNode.baseProperties
           this.selectedNodeBaseProperties.data.resourceId = selectedNode.type + selectedNode.key
           // this.selectedNodeResourceProperties = selectedNode.resourceProperties
-
+          console.log(this.diagramData.nodeDataArray)
+          console.log(this.selected.key)
           for (let arr of this.diagramData.nodeDataArray) {
             if (arr.key === this.selected.key) {
+              console.log(arr)
+              console.log(this.selected)
+              debugger
               this.selectedNodeResourceProperties = arr.resourceProperties
+              console.log(this.diagramData.nodeDataArray)
+              return
             }
           }
         })
@@ -452,6 +462,7 @@
 
         // 监听连线事件
         this.myDiagram.addDiagramListener('LinkDrawn', (e) => {
+          debugger
           var res = this.manageLines(e.subject.part)
           if (res) {
             this.myDiagram.commandHandler.deleteSelection()
