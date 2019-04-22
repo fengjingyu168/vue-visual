@@ -55,13 +55,12 @@
     },
     props: ['attr'],
     mounted() {
-
+      console.log(this.attr)
     },
     watch: {
       attr: {
         handler(newValue) {
-          console.log(newValue)
-          this.$emit('obtainNewData', newValue.data)
+          this.$emit('obtainNewData', newValue)
         },
         deep: true
       }

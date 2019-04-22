@@ -365,6 +365,7 @@
 
         selected: null, // 选中区数据(节点、连线)
         diagramData: null,
+        node_templates: {}, // 缓存节点属性数据
       }
     },
     props: {},
@@ -374,12 +375,15 @@
     methods: {
       // 将回传属性值绑定到对应节点中
       obtainNewData(newData) {
-        this.diagramData.nodeDataArray.forEach((data) => {
-          if (data.key === this.selected.key) {
-            data.resourceProperties.data = newData
-            return data
-          }
-        })
+        console.log(newData)
+        this.node_templates[this.selected.key] = newData
+        // console.log(this.node_templates)
+        // this.diagramData.nodeDataArray.forEach((data) => {
+        //   if (data.key === this.selected.key) {
+        //     data.resourceProperties.data = newData
+        //     return data
+        //   }
+        // })
       },
       init() {
         // if (window.goSamples) goSamples()  // init for these samples -- you don't need to call this
@@ -407,6 +411,7 @@
                 if (e.isTransactionFinished) {
                   document.getElementById('mySavedModel').textContent = this.myDiagram.model.toJson()
                   let str = this.myDiagram.model.toJson()
+
                   _this.diagramData = JSON.parse(str)
 
                 }
@@ -416,7 +421,6 @@
 
         // when the document is modified, add a '*' to the title and enable the 'Save' button
         this.myDiagram.addDiagramListener('Modified', () => {
-          // console.log(e)
           var button = document.getElementById('SaveButton')
           if (button) button.disabled = !this.myDiagram.isModified
           var idx = document.title.indexOf('*')
@@ -430,7 +434,6 @@
         // 节点选中事件
         this.myDiagram.addDiagramListener('ObjectSingleClicked', (e) => {
           if (e.subject.part.type.name === 'Link') {
-            debugger
             return
           }
           this.selectedNodeBaseProperties = {}
@@ -440,19 +443,21 @@
           this.selected = e.subject.part.data
           this.selectedNodeBaseProperties = selectedNode.baseProperties
           this.selectedNodeBaseProperties.data.resourceId = selectedNode.type + selectedNode.key
-          // this.selectedNodeResourceProperties = selectedNode.resourceProperties
-          console.log(this.diagramData.nodeDataArray)
-          console.log(this.selected.key)
-          for (let arr of this.diagramData.nodeDataArray) {
-            if (arr.key === this.selected.key) {
-              console.log(arr)
-              console.log(this.selected)
-              debugger
-              this.selectedNodeResourceProperties = arr.resourceProperties
-              console.log(this.diagramData.nodeDataArray)
-              return
-            }
+          console.log(selectedNode.key)
+          console.log(this.node_templates)
+          if (this.node_templates.hasOwnProperty(selectedNode.key)){
+            this.selectedNodeResourceProperties = this.node_templates[selectedNode.key]
+          } else {
+            this.selectedNodeResourceProperties = this.config[selectedNode.type].resourceProperties
           }
+          // this.selectedNodeResourceProperties = this.node_templates[selectedNode.key]
+          console.log(this.selectedNodeResourceProperties)
+          // for (let arr of this.diagramData.nodeDataArray) {
+          //   if (arr.key === this.selected.key) {
+          //     this.selectedNodeResourceProperties = arr.resourceProperties
+          //     return
+          //   }
+          // }
         })
         // 节点选中事件
         // this.myDiagram.addDiagramListener('LostFocus', (e) => {
@@ -462,7 +467,6 @@
 
         // 监听连线事件
         this.myDiagram.addDiagramListener('LinkDrawn', (e) => {
-          debugger
           var res = this.manageLines(e.subject.part)
           if (res) {
             this.myDiagram.commandHandler.deleteSelection()
