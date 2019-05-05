@@ -71,6 +71,10 @@
   </div>
 </template>
 <style>
+  /*取消cavas自带边框效果*/
+  canvas:focus {
+    outline: none;
+  }
   h4 {
     margin: 0;
   }
@@ -290,9 +294,10 @@
                   disabled: false,
                 },
               ],
-              data: {},
+              data: {
+                v_selected: null
+              },
               v_select_configs: {
-                v_selected: null,
                 v_option: [
                   {label: '1', value: 1},
                   {label: '2', value: 2},
@@ -473,7 +478,6 @@
         // 节点选中事件
         // this.myDiagram.addDiagramListener('LostFocus', (e) => {
         //   console.log(e)
-        //   debugger
         // })
 
         // 监听连线事件
@@ -767,7 +771,7 @@
           node_temp.properties = this.node_templates[item.key].data
           res.node_templates.push(node_temp)
         }
-        console.log(res)
+        console.log(JSON.stringify(res))
       }
 
     },

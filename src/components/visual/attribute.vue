@@ -29,7 +29,7 @@
 
           <template v-if="property.type === 'select'">
             <v-select
-                      v-model="attr.v_select_configs[property.value]"
+                      v-model="attr.data[property.value]"
                       :disabled="property.disabled"
                       label='label'
                       :name="property.showName? property.showName : 'label'"
@@ -60,6 +60,8 @@
     watch: {
       attr: {
         handler(newValue) {
+          console.log(newValue)
+          debugger
           this.$emit('obtainNewData', newValue)
         },
         deep: true
