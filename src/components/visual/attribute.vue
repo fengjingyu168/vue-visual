@@ -55,7 +55,7 @@
     },
     props: ['attr'],
     mounted() {
-      console.log(this.attr)
+      // console.log(this.attr)
     },
     watch: {
       attr: {

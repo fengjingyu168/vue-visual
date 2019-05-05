@@ -1,6 +1,16 @@
 <template>
   <div id='sample'>
-    {{diagramData}}
+    <div style="flex-direction: row;display: flex;height:60px;background: #000">
+      <div style="width:230px;color:white;font-size: 18px;padding: 16px 20px;">
+        可视化编辑器
+      </div>
+      <div style="width:100%;background-color: #444;color: white;font-size: 20px;">
+        <div style="line-height: 60px;vertical-align: middle;padding: 0 20px;">
+          <i class="fa fa-floppy-o" style="cursor: pointer;" aria-hidden="true"
+          @click="saveTemplate"></i>
+        </div>
+      </div>
+    </div>
     <div style='width: 100%;height:100vh; display: flex; justify-content: space-between;'>
       <div id='myPaletteDiv'></div>
       <div id='myDiagramDiv'></div>
@@ -377,7 +387,7 @@
       obtainNewData(newData) {
         console.log(newData)
         this.node_templates[this.selected.key] = newData
-        // console.log(this.node_templates)
+        console.log(this.node_templates)
         // this.diagramData.nodeDataArray.forEach((data) => {
         //   if (data.key === this.selected.key) {
         //     data.resourceProperties.data = newData
@@ -413,6 +423,7 @@
                   let str = this.myDiagram.model.toJson()
 
                   _this.diagramData = JSON.parse(str)
+                  console.log(_this.diagramData)
 
                 }
               },
@@ -443,15 +454,15 @@
           this.selected = e.subject.part.data
           this.selectedNodeBaseProperties = selectedNode.baseProperties
           this.selectedNodeBaseProperties.data.resourceId = selectedNode.type + selectedNode.key
-          console.log(selectedNode.key)
-          console.log(this.node_templates)
+          // console.log(selectedNode.key)
+          // console.log(this.node_templates)
           if (this.node_templates.hasOwnProperty(selectedNode.key)){
             this.selectedNodeResourceProperties = this.node_templates[selectedNode.key]
           } else {
             this.selectedNodeResourceProperties = this.config[selectedNode.type].resourceProperties
           }
           // this.selectedNodeResourceProperties = this.node_templates[selectedNode.key]
-          console.log(this.selectedNodeResourceProperties)
+          // console.log(this.selectedNodeResourceProperties)
           // for (let arr of this.diagramData.nodeDataArray) {
           //   if (arr.key === this.selected.key) {
           //     this.selectedNodeResourceProperties = arr.resourceProperties
@@ -738,6 +749,25 @@
         setTimeout(function () {
           svgWindow.print()
         }, 1)
+      },
+      // 将页面数据处理为落库态
+      saveTemplate () {
+        let res = {
+          metadata: {},
+          node_templates: []
+        }
+        res.metadata.Designer = this.diagramData.nodeDataArray
+        res.metadata.relationships = this.diagramData.linkDataArray
+
+        for (let item of this.diagramData.nodeDataArray) {
+          let node_temp = {}
+          node_temp.id = item.key
+          node_temp.type = item.type
+          node_temp.category = item.category
+          node_temp.properties = this.node_templates[item.key].data
+          res.node_templates.push(node_temp)
+        }
+        console.log(res)
       }
 
     },
@@ -749,7 +779,7 @@
 
 <style scoped>
   #myPaletteDiv {
-    width: 100px;
+    width: 200px;
     margin-right: -1px;
     background-color: white;
     border: solid 1px #E9E9E9;
