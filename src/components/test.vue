@@ -1,31 +1,27 @@
 <template>
-  <div class="" id="register">
-    <Slider :min="10" :max="100" showInput></Slider>
+  <div style="height: 1000px;width: 1000px;">
+    <input v-model="test.text">
   </div>
 </template>
 
 <script>
+  export default {
+    data () {
+      return {
+        test: {
+          text: 'asdfas'
+        }
+      }
+    },
 
-export default {
-  data () {
-    return {
-
+    watch:{
+      test: {
+        deep: true,
+        handler: function (newVal,oldVal){
+          console.log('newValue', newVal)
+          console.log('oldValue', oldVal.text)
+        }
+      }
     }
-  },
-  methods: {
-
-  },
-  components: {
-
   }
-}
-
-
 </script>
-
-<style lang="less" scoped>
-  #register{
-    width: 500px;
-    margin: 50px auto;
-  }
-</style>

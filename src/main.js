@@ -16,6 +16,7 @@ import Promise from 'promise'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 import {validate} from './common/validate.js'
+import {visualEditor} from './common/visualEditor.js'
 import httpRequestEntrance from './common/httpRequestEntrance.js'
 import {utils} from './common/utils.js'
 import jquery from 'jquery'
@@ -34,6 +35,7 @@ iView.Message.config({
 Vue.use(iView)
 
 Vue.prototype.$validate = validate
+Vue.prototype.$visualEditor = visualEditor
 Vue.prototype.$httpRequestEntrance = httpRequestEntrance
 Vue.prototype.$utils = utils
 Vue.prototype.JQ = jquery

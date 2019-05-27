@@ -13,6 +13,11 @@ const router = new Router({
   }),
   routes: [
     {
+      path: '/test',
+      name: 'test',
+      component: () => import('@/components/test'),
+    },
+    {
       path: '/',
       name: 'index',
       // redirect: '/portal',

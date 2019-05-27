@@ -7,7 +7,7 @@
       <div style="width:100%;background-color: #444;color: white;font-size: 20px;">
         <div style="line-height: 60px;vertical-align: middle;padding: 0 20px;">
           <i class="fa fa-floppy-o" style="cursor: pointer;" aria-hidden="true"
-          @click="saveTemplate"></i>
+             @click="saveTemplate"></i>
         </div>
       </div>
     </div>
@@ -23,7 +23,7 @@
               基本属性
             </div>
             <div>
-              <Attribute :attr='baseProperties'></Attribute>
+              <Attribute :type="'T_Base'" :attr='baseProperties' @obtainNewData="obtainNewData"></Attribute>
             </div>
           </div>
         </div>
@@ -38,7 +38,8 @@
                 基本属性
               </div>
               <div>
-                <Attribute :attr='selectedNodeBaseProperties'></Attribute>
+                <Attribute :type="'N_Base'" :attr='selectedNodeBaseProperties'
+                           @obtainNewData="obtainNewData"></Attribute>
               </div>
             </section>
             <section>
@@ -46,7 +47,8 @@
                 资源属性
               </div>
               <div>
-                <Attribute :attr='selectedNodeResourceProperties' @obtainNewData="obtainNewData"></Attribute>
+                <Attribute :type="'N_Res'" :attr='selectedNodeResourceProperties'
+                           @obtainNewData="obtainNewData"></Attribute>
               </div>
             </section>
 
@@ -61,10 +63,10 @@
       <button @click='load()'>Load</button>
       Diagram Model saved in JSON format:
       <textarea id='mySavedModel' style='width:100%;height:300px;'>
-{ "class": "GraphLinksModel",
-  "nodeDataArray": [ ],
-  "linkDataArray": []}
-  </textarea>
+        { "class": "GraphLinksModel",
+          "nodeDataArray": [ ],
+          "linkDataArray": []}
+      </textarea>
 
       <button @click='printDiagram()'>Print Diagram Using SVG</button>
     </p>
@@ -75,6 +77,7 @@
   canvas:focus {
     outline: none;
   }
+
   h4 {
     margin: 0;
   }
@@ -136,7 +139,7 @@
                   label: '资源ID',
                   value: 'resourceId',
                   placeholder: '',
-                  disabled: false,
+                  disabled: true,
                   type: 'text',
                   v_validate: 'required:true|min:2|max:60',
                   isError: false
@@ -145,7 +148,7 @@
                   label: '资源类型',
                   value: 'resourceType',
                   placeholder: '',
-                  disabled: false,
+                  disabled: true,
                   type: 'text',
                   v_validate: 'required:true',
                   isError: false
@@ -154,7 +157,7 @@
                   label: '资源依赖',
                   value: 'resourceDepends',
                   placeholder: '',
-                  disabled: false,
+                  disabled: true,
                   type: 'text',
                   v_validate: 'required:true',
                   isError: false
@@ -194,7 +197,7 @@
                   label: '资源ID',
                   value: 'resourceId',
                   placeholder: '',
-                  disabled: false,
+                  disabled: true,
                   type: 'text',
                   v_validate: 'required:true|min:2|max:60',
                   isError: false
@@ -203,7 +206,7 @@
                   label: '资源类型',
                   value: 'resourceType',
                   placeholder: '',
-                  disabled: false,
+                  disabled: true,
                   type: 'text',
                   v_validate: 'required:true',
                   isError: false
@@ -212,7 +215,7 @@
                   label: '资源依赖',
                   value: 'resourceDepends',
                   placeholder: '',
-                  disabled: false,
+                  disabled: true,
                   type: 'text',
                   v_validate: 'required:true',
                   isError: false
@@ -227,6 +230,15 @@
             resourceProperties: {
               config: [
                 {
+                  label: '输入框测试',
+                  value: 'haha',
+                  placeholder: '',
+                  disabled: false,
+                  type: 'text',
+                  v_validate: 'required:true',
+                  isError: false
+                },
+                {
                   label: '数字框',
                   value: 'inputNumber',
                   max: 10,
@@ -238,7 +250,8 @@
                 },
               ],
               data: {
-                inputNumber: 0
+                haha: '',
+                inputNumber: 0,
               }
             },
           },
@@ -253,7 +266,7 @@
                   label: '资源ID',
                   value: 'resourceId',
                   placeholder: '',
-                  disabled: false,
+                  disabled: true,
                   type: 'text',
                   v_validate: 'required:true|min:2|max:60',
                   isError: false
@@ -262,7 +275,7 @@
                   label: '资源类型',
                   value: 'resourceType',
                   placeholder: '',
-                  disabled: false,
+                  disabled: true,
                   type: 'text',
                   v_validate: 'required:true',
                   isError: false
@@ -271,7 +284,7 @@
                   label: '资源依赖',
                   value: 'resourceDepends',
                   placeholder: '',
-                  disabled: false,
+                  disabled: true,
                   type: 'text',
                   v_validate: 'required:true',
                   isError: false
@@ -307,6 +320,199 @@
             },
           }
         }, // 菜单属性配置
+        originalConfig: {
+          NAS: {
+            _comment: 'NAS产品配置',
+            text: 'NAS',
+            source: require('./pic/NAS.png'),
+            inNodeType: ['ECS', 'CBS'],
+            baseProperties: {
+              config: [
+                {
+                  label: '资源ID',
+                  value: 'resourceId',
+                  placeholder: '',
+                  disabled: true,
+                  type: 'text',
+                  v_validate: 'required:true|min:2|max:60',
+                  isError: false
+                },
+                {
+                  label: '资源类型',
+                  value: 'resourceType',
+                  placeholder: '',
+                  disabled: true,
+                  type: 'text',
+                  v_validate: 'required:true',
+                  isError: false
+                },
+                {
+                  label: '资源依赖',
+                  value: 'resourceDepends',
+                  placeholder: '',
+                  disabled: true,
+                  type: 'text',
+                  v_validate: 'required:true',
+                  isError: false
+                },
+              ],
+              data: {
+                resourceId: 'NAS',
+                resourceType: '',
+                resourceDepends: ''
+              }
+            },
+            resourceProperties: {
+              config: [
+                {
+                  label: '单选',
+                  value: 'singleCheck',
+                  placeholder: '',
+                  disabled: false,
+                  type: 'checkbox',
+                  v_validate: '',
+                  isError: false
+                },
+              ],
+              data: {
+                singleCheck: false,
+              }
+            },
+          },
+          ECS: {
+            _comment: 'ECS产品配置',
+            text: 'ECS',
+            source: require('./pic/ECS.png'),
+            inNodeType: [],
+            baseProperties: {
+              config: [
+                {
+                  label: '资源ID',
+                  value: 'resourceId',
+                  placeholder: '',
+                  disabled: true,
+                  type: 'text',
+                  v_validate: 'required:true|min:2|max:60',
+                  isError: false
+                },
+                {
+                  label: '资源类型',
+                  value: 'resourceType',
+                  placeholder: '',
+                  disabled: true,
+                  type: 'text',
+                  v_validate: 'required:true',
+                  isError: false
+                },
+                {
+                  label: '资源依赖',
+                  value: 'resourceDepends',
+                  placeholder: '',
+                  disabled: true,
+                  type: 'text',
+                  v_validate: 'required:true',
+                  isError: false
+                },
+              ],
+              data: {
+                resourceId: 'ECS',
+                resourceType: '',
+                resourceDepends: ''
+              }
+            },
+            resourceProperties: {
+              config: [
+                {
+                  label: '输入框测试',
+                  value: 'haha',
+                  placeholder: '',
+                  disabled: false,
+                  type: 'text',
+                  v_validate: 'required:true',
+                  isError: false
+                },
+                {
+                  label: '数字框',
+                  value: 'inputNumber',
+                  max: 10,
+                  min: 1,
+                  disabled: false,
+                  type: 'InputNumber',
+                  v_validate: '',
+                  isError: false
+                },
+              ],
+              data: {
+                haha: '',
+                inputNumber: 0,
+              }
+            },
+          },
+          CBS: {
+            _comment: 'CBS产品配置',
+            text: 'CBS',
+            source: require('./pic/CBS.png'),
+            inNodeType: [],
+            baseProperties: {
+              config: [
+                {
+                  label: '资源ID',
+                  value: 'resourceId',
+                  placeholder: '',
+                  disabled: true,
+                  type: 'text',
+                  v_validate: 'required:true|min:2|max:60',
+                  isError: false
+                },
+                {
+                  label: '资源类型',
+                  value: 'resourceType',
+                  placeholder: '',
+                  disabled: true,
+                  type: 'text',
+                  v_validate: 'required:true',
+                  isError: false
+                },
+                {
+                  label: '资源依赖',
+                  value: 'resourceDepends',
+                  placeholder: '',
+                  disabled: true,
+                  type: 'text',
+                  v_validate: 'required:true',
+                  isError: false
+                },
+              ],
+              data: {
+                resourceId: 'CBS',
+                resourceType: '',
+                resourceDepends: ''
+              }
+            },
+            resourceProperties: {
+              config: [
+                {
+                  label: '选择框',
+                  value: 'v_selected',
+                  option: 'v_option',
+                  type: 'select',
+                  placeholder: '',
+                  disabled: false,
+                },
+              ],
+              data: {
+                v_selected: null
+              },
+              v_select_configs: {
+                v_option: [
+                  {label: '1', value: 1},
+                  {label: '2', value: 2},
+                  {label: '3', value: 3}
+                ],
+              }
+            },
+          }
+        }, // 缓存初始配置以便节点初始化
         selectedNodeBaseProperties: {}, // 选中节点基本属性
         selectedNodeResourceProperties: {}, // 选中节点资源属性
 
@@ -317,7 +523,7 @@
               label: '版本',
               value: 'version',
               placeholder: '',
-              disabled: false,
+              disabled: true,
               type: 'text',
               v_validate: 'required:true|min:2|max:60',
               isError: false
@@ -355,8 +561,8 @@
           data: {
             version: 'asdfasdf',
             description: '',
-            singleCheck: false,
-            inputNumber: 0
+            // singleCheck: false,
+            // inputNumber: 0
           },
           v_select_configs: {
             v_selected: null,
@@ -367,8 +573,6 @@
             ],
           }
         },
-        version: '',
-        description: '',
         // 画布配置-结束
 
         // 节点属性配置-开始
@@ -385,20 +589,22 @@
     },
     props: {},
     mounted() {
+      this.baseProperties.data.version = `IndoraVisual-${(new Date()).getTime()}`
       this.init()
     },
     methods: {
       // 将回传属性值绑定到对应节点中
-      obtainNewData(newData) {
-        console.log(newData)
-        this.node_templates[this.selected.key] = newData
-        console.log(this.node_templates)
-        // this.diagramData.nodeDataArray.forEach((data) => {
-        //   if (data.key === this.selected.key) {
-        //     data.resourceProperties.data = newData
-        //     return data
-        //   }
-        // })
+      obtainNewData(type, newData) {
+        console.log(type, newData)
+
+        if (type.split('_')[0] === 'N' && type.split('_')[1] === 'Res') {
+          this.node_templates[this.selected.key] = newData
+        }
+        if (type.split('_')[0] === 'N' && type.split('_')[1] === 'Base') {
+          console.log(this.selected.key)
+          // this.node_templates[this.selected.key] = newData
+        }
+
       },
       init() {
         // if (window.goSamples) goSamples()  // init for these samples -- you don't need to call this
@@ -428,7 +634,6 @@
                   let str = this.myDiagram.model.toJson()
 
                   _this.diagramData = JSON.parse(str)
-                  console.log(_this.diagramData)
 
                 }
               },
@@ -459,21 +664,12 @@
           this.selected = e.subject.part.data
           this.selectedNodeBaseProperties = selectedNode.baseProperties
           this.selectedNodeBaseProperties.data.resourceId = selectedNode.type + selectedNode.key
-          // console.log(selectedNode.key)
-          // console.log(this.node_templates)
-          if (this.node_templates.hasOwnProperty(selectedNode.key)){
+
+          if (this.node_templates.hasOwnProperty(selectedNode.key)) {
             this.selectedNodeResourceProperties = this.node_templates[selectedNode.key]
           } else {
-            this.selectedNodeResourceProperties = this.config[selectedNode.type].resourceProperties
+            this.selectedNodeResourceProperties = this.$validate.deepClone(this.originalConfig[selectedNode.type].resourceProperties)
           }
-          // this.selectedNodeResourceProperties = this.node_templates[selectedNode.key]
-          // console.log(this.selectedNodeResourceProperties)
-          // for (let arr of this.diagramData.nodeDataArray) {
-          //   if (arr.key === this.selected.key) {
-          //     this.selectedNodeResourceProperties = arr.resourceProperties
-          //     return
-          //   }
-          // }
         })
         // 节点选中事件
         // this.myDiagram.addDiagramListener('LostFocus', (e) => {
@@ -755,23 +951,8 @@
         }, 1)
       },
       // 将页面数据处理为落库态
-      saveTemplate () {
-        let res = {
-          metadata: {},
-          node_templates: []
-        }
-        res.metadata.Designer = this.diagramData.nodeDataArray
-        res.metadata.relationships = this.diagramData.linkDataArray
-
-        for (let item of this.diagramData.nodeDataArray) {
-          let node_temp = {}
-          node_temp.id = item.key
-          node_temp.type = item.type
-          node_temp.category = item.category
-          node_temp.properties = this.node_templates[item.key].data
-          res.node_templates.push(node_temp)
-        }
-        console.log(JSON.stringify(res))
+      saveTemplate() {
+        this.$visualEditor.saveTemplate(this)
       }
 
     },

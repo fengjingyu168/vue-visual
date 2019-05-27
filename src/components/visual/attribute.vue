@@ -53,16 +53,14 @@
         aa: 11
       }
     },
-    props: ['attr'],
+    props: ['attr', 'type'],
     mounted() {
       // console.log(this.attr)
     },
     watch: {
       attr: {
         handler(newValue) {
-          console.log(newValue)
-          debugger
-          this.$emit('obtainNewData', newValue)
+          this.$emit('obtainNewData' ,this.type, newValue)
         },
         deep: true
       }

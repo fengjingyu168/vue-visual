@@ -163,8 +163,25 @@ const deepCopy = (obj) =>{
       val = val.format('yyyy-MM-dd hh:mm:ss')
     }
     newO[key] = typeof val === 'object' ? arguments.callee(val) : val
+    newO[key] = val
   }
   return newO
+}
+
+
+function deepClone(source){
+  const targetObj = source.constructor === Array ? [] : {} // 判断复制的目标是数组还是对象
+  for(let keys in source){ // 遍历目标
+    if(source.hasOwnProperty(keys)){
+      if(source[keys] && typeof source[keys] === 'object'){ // 如果值是对象，就递归一下
+        targetObj[keys] = source[keys].constructor === Array ? [] : {}
+        targetObj[keys] = deepClone(source[keys])
+      }else{ // 如果不是，就直接赋值
+        targetObj[keys] = source[keys]
+      }
+    }
+  }
+  return targetObj
 }
 
 // 格式化时间
@@ -369,6 +386,7 @@ export const validate = {
   isEmptyInObj,
   emptyJson, // 清空JSON对象中的值
   deepCopy, // JSON对象深拷贝
+  deepClone, // 深拷贝
   isContainChina, //是否包含中文字符
   modal_confirm_custom,
   valueFromExpression, //多级表达式取值
