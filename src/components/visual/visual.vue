@@ -420,12 +420,19 @@
               'LinkDrawn': showLinkLabel,  // this DiagramEvent listener is defined below
               'LinkRelinked': showLinkLabel,
               'undoManager.isEnabled': true,  // enable undo & redo
-              nodeSelectionAdornmentTemplate:
-                $_(go.Adornment, 'Auto',
-                  // { layerName: 'Grid' },  // the predefined layer that is behind everything else
-                  $_(go.Shape, 'Rectangle', {fill: 'white', stroke: null}),
-                  // $_(go.Placeholder)
-                ),
+              // nodeSelectionAdornmentTemplate:
+              //   $_(go.Adornment, 'Auto',
+              //     // { layerName: 'Grid' },  // the predefined layer that is behind everything else
+              //     $_(go.Shape, 'Rectangle', {fill: 'white', stroke: null}),
+              //     // $_(go.Placeholder)
+              //   ),
+              nodeSelectionAdornmentTemplate:$_(go.Adornment, 'Auto',
+                $_(go.Shape, { fill: null,
+                  stroke: 'deepskyblue',
+                  strokeWidth: 1.5,
+                  strokeDashArray: [4, 2] }),
+                $_(go.Placeholder)
+              ),
               grid: $_(go.Panel, 'Grid',
                 {gridCellSize: new go.Size(10, 10)},
                 $_(go.Shape, 'LineH', {stroke: '#F5F5F5'}),
@@ -706,7 +713,13 @@
               nodeTemplateMap: this.myDiagram.nodeTemplateMap,  // share the templates used by myDiagram
               model: new go.GraphLinksModel(
                 this.initPaletteConfig()
-              )
+              ),
+              nodeSelectionAdornmentTemplate:
+                $_(go.Adornment, 'Auto',
+                  // { layerName: 'Grid' },  // the predefined layer that is behind everything else
+                  $_(go.Shape, 'Rectangle', {fill: 'white', stroke: null}),
+                  // $_(go.Placeholder)
+                ),
             })
       }, // end init
       // 处理连线问题
