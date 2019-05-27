@@ -127,199 +127,6 @@
           {category: 'Picture', type: 'ECS'},
           {category: 'Picture', type: 'CBS'}
         ], // 菜单配置
-        config: {
-          NAS: {
-            _comment: 'NAS产品配置',
-            text: 'NAS',
-            source: require('./pic/NAS.png'),
-            inNodeType: ['ECS', 'CBS'],
-            baseProperties: {
-              config: [
-                {
-                  label: '资源ID',
-                  value: 'resourceId',
-                  placeholder: '',
-                  disabled: true,
-                  type: 'text',
-                  v_validate: 'required:true|min:2|max:60',
-                  isError: false
-                },
-                {
-                  label: '资源类型',
-                  value: 'resourceType',
-                  placeholder: '',
-                  disabled: true,
-                  type: 'text',
-                  v_validate: 'required:true',
-                  isError: false
-                },
-                {
-                  label: '资源依赖',
-                  value: 'resourceDepends',
-                  placeholder: '',
-                  disabled: true,
-                  type: 'text',
-                  v_validate: 'required:true',
-                  isError: false
-                },
-              ],
-              data: {
-                resourceId: 'NAS',
-                resourceType: '',
-                resourceDepends: ''
-              }
-            },
-            resourceProperties: {
-              config: [
-                {
-                  label: '单选',
-                  value: 'singleCheck',
-                  placeholder: '',
-                  disabled: false,
-                  type: 'checkbox',
-                  v_validate: '',
-                  isError: false
-                },
-              ],
-              data: {
-                singleCheck: false,
-              }
-            },
-          },
-          ECS: {
-            _comment: 'ECS产品配置',
-            text: 'ECS',
-            source: require('./pic/ECS.png'),
-            inNodeType: [],
-            baseProperties: {
-              config: [
-                {
-                  label: '资源ID',
-                  value: 'resourceId',
-                  placeholder: '',
-                  disabled: true,
-                  type: 'text',
-                  v_validate: 'required:true|min:2|max:60',
-                  isError: false
-                },
-                {
-                  label: '资源类型',
-                  value: 'resourceType',
-                  placeholder: '',
-                  disabled: true,
-                  type: 'text',
-                  v_validate: 'required:true',
-                  isError: false
-                },
-                {
-                  label: '资源依赖',
-                  value: 'resourceDepends',
-                  placeholder: '',
-                  disabled: true,
-                  type: 'text',
-                  v_validate: 'required:true',
-                  isError: false
-                },
-              ],
-              data: {
-                resourceId: 'ECS',
-                resourceType: '',
-                resourceDepends: ''
-              }
-            },
-            resourceProperties: {
-              config: [
-                {
-                  label: '输入框测试',
-                  value: 'haha',
-                  placeholder: '',
-                  disabled: false,
-                  type: 'text',
-                  v_validate: 'required:true',
-                  isError: false
-                },
-                {
-                  label: '数字框',
-                  value: 'inputNumber',
-                  max: 10,
-                  min: 1,
-                  disabled: false,
-                  type: 'InputNumber',
-                  v_validate: '',
-                  isError: false
-                },
-              ],
-              data: {
-                haha: '',
-                inputNumber: 0,
-              }
-            },
-          },
-          CBS: {
-            _comment: 'CBS产品配置',
-            text: 'CBS',
-            source: require('./pic/CBS.png'),
-            inNodeType: [],
-            baseProperties: {
-              config: [
-                {
-                  label: '资源ID',
-                  value: 'resourceId',
-                  placeholder: '',
-                  disabled: true,
-                  type: 'text',
-                  v_validate: 'required:true|min:2|max:60',
-                  isError: false
-                },
-                {
-                  label: '资源类型',
-                  value: 'resourceType',
-                  placeholder: '',
-                  disabled: true,
-                  type: 'text',
-                  v_validate: 'required:true',
-                  isError: false
-                },
-                {
-                  label: '资源依赖',
-                  value: 'resourceDepends',
-                  placeholder: '',
-                  disabled: true,
-                  type: 'text',
-                  v_validate: 'required:true',
-                  isError: false
-                },
-              ],
-              data: {
-                resourceId: 'CBS',
-                resourceType: '',
-                resourceDepends: ''
-              }
-            },
-            resourceProperties: {
-              config: [
-                {
-                  label: '选择框',
-                  value: 'v_selected',
-                  option: 'v_option',
-                  type: 'select',
-                  placeholder: '',
-                  disabled: false,
-                },
-              ],
-              data: {
-                v_selected: null
-              },
-              v_select_configs: {
-                v_option: [
-                  {label: '1', value: 1},
-                  {label: '2', value: 2},
-                  {label: '3', value: 3}
-                ],
-              }
-            },
-          }
-        }, // 菜单属性配置
         originalConfig: {
           NAS: {
             _comment: 'NAS产品配置',
@@ -422,15 +229,15 @@
             },
             resourceProperties: {
               config: [
-                {
-                  label: '输入框测试',
-                  value: 'haha',
-                  placeholder: '',
-                  disabled: false,
-                  type: 'text',
-                  v_validate: 'required:true',
-                  isError: false
-                },
+                // {
+                //   label: '输入框测试',
+                //   value: 'haha',
+                //   placeholder: '',
+                //   disabled: false,
+                //   type: 'text',
+                //   v_validate: 'required:true',
+                //   isError: false
+                // },
                 {
                   label: '数字框',
                   value: 'inputNumber',
@@ -595,16 +402,13 @@
     methods: {
       // 将回传属性值绑定到对应节点中
       obtainNewData(type, newData) {
-        console.log(type, newData)
-
         if (type.split('_')[0] === 'N' && type.split('_')[1] === 'Res') {
           this.node_templates[this.selected.key] = newData
         }
         if (type.split('_')[0] === 'N' && type.split('_')[1] === 'Base') {
-          console.log(this.selected.key)
+          // console.log(this.selected.key)
           // this.node_templates[this.selected.key] = newData
         }
-
       },
       init() {
         // if (window.goSamples) goSamples()  // init for these samples -- you don't need to call this
@@ -917,7 +721,7 @@
       // 节点信息初始化
       initPaletteConfig() {
         this.menuParams = this.menuParams.filter((val) => {
-          return Object.assign(val, this.config[val.type])
+          return Object.assign(val, this.originalConfig[val.type])
         })
         return this.menuParams
       },

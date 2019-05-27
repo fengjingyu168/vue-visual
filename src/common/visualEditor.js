@@ -1,11 +1,13 @@
 // 生成最终落库数据
 const saveTemplate = function(_this){
   let res = {
-    metadata: {},
+    Metadata: {},
     node_templates: []
   }
-  res.metadata.Designer = _this.diagramData.nodeDataArray
-  res.metadata.relationships = _this.diagramData.linkDataArray
+  res.Version = _this.baseProperties.data.version
+  res.Description = _this.baseProperties.data.description
+  res.Metadata.Designer = _this.diagramData.nodeDataArray
+  res.Metadata.Relationships = _this.diagramData.linkDataArray
 
   for (let item of _this.diagramData.nodeDataArray) {
     let node_temp = {}
