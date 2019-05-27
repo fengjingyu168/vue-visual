@@ -420,12 +420,6 @@
               'LinkDrawn': showLinkLabel,  // this DiagramEvent listener is defined below
               'LinkRelinked': showLinkLabel,
               'undoManager.isEnabled': true,  // enable undo & redo
-              // nodeSelectionAdornmentTemplate:
-              //   $_(go.Adornment, 'Auto',
-              //     // { layerName: 'Grid' },  // the predefined layer that is behind everything else
-              //     $_(go.Shape, 'Rectangle', {fill: 'white', stroke: null}),
-              //     // $_(go.Placeholder)
-              //   ),
               nodeSelectionAdornmentTemplate:$_(go.Adornment, 'Auto',
                 $_(go.Shape, { fill: null,
                   stroke: 'deepskyblue',
@@ -532,8 +526,8 @@
             {
               fill: 'transparent',  // changed to a color in the mouseEnter event handler
               strokeWidth: 0,  // no stroke
-              width: 18,  // if not stretching horizontally, just 8 wide
-              height: 18,  // if not stretching vertically, just 8 tall
+              width: 8,  // if not stretching horizontally, just 8 wide
+              height: 8,  // if not stretching vertically, just 8 tall
               alignment: align,  // align the port on the main Shape
               stretch: (horizontal ? go.GraphObject.Horizontal : go.GraphObject.Vertical),
               portId: name,  // declare this object to be a 'port'
@@ -543,10 +537,17 @@
               toLinkable: input,  // declare whether the user may draw links to here
               cursor: 'pointer',  // show a different cursor to indicate potential link point
               mouseEnter: function (e, port) {  // the PORT argument will be this Shape
-                if (!e.diagram.isReadOnly) port.fill = 'red'
+                if (!e.diagram.isReadOnly) {
+                  // port.fill = '#00A9C9'
+                  port.fill = 'white'
+                  port.strokeWidth = 2
+                  port.stroke = '#00A9C9'
+
+                }
               },
               mouseLeave: function (e, port) {
                 port.fill = 'transparent'
+                port.strokeWidth = 0
               }
             })
         }
