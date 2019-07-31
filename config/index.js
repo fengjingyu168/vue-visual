@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '*': {
-        // target: 'http://rap.dev.cmrh.com:8080/mockjsdata/68',
+        // target: 'http://xx.com',
         secure: false,
         pathRewrite: {'^/api':''}
       }

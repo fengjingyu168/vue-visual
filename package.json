@@ -28,7 +28,7 @@
     "echarts": "^4.1.0",
     "element-ui": "^2.4.9",
     "gojs": "^2.0.8",
-    "iview": "^2.14.npm r0",
+    "iview": "^2.14.0",
     "jquery": "^3.2.1",
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
